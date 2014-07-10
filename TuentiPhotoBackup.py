@@ -56,7 +56,7 @@ def startDownload(email, password):
             re.findall('[of|de|\/|sur|di|van|z]\s(\d+)\)', r.text)[0])
         photoDownloadUrl = re.findall('img\ssrc="(.*?)"', r.text)[0]
         if picQuantity > 1:
-            # not loading a whole lib for one single entity
+            # Not loading a whole lib for one single entity
             nextPhotoUrl = re.findall(
                 '\)\s\<a href="(.*?)"', r.text)[0].replace("&amp;", "&")
         else:
@@ -81,13 +81,15 @@ def startDownload(email, password):
                     handle.write(block)
 
             percent = (x * 100) / picQuantity
-            print("%s.jpg downloaded (%i%%)... (%i/2)" % (x, percent, i))
-            sleep(0.5)  # avoid flooding
+            print("%s.jpg downloaded (%i%%)... (album %i/2)" % (x, percent, i))
+            sleep(0.5)  # Avoid flooding
 
         print("Done.")
 
 
 if __name__ == "__main__":
-    version = 1.1
-    print("~ tpb %s ~" % version)
-    init()
+    print("TuentiPhotoBackup")
+    try:
+        init()
+    except KeyboardInterrupt:
+        pass
